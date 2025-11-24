@@ -11,6 +11,7 @@
     private string $content = "";
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate = null;
+    private int $commentCount;
     private int $views;
 
     /**
@@ -145,5 +146,23 @@
     public function getViews() : int
     {
         return $this->views;
+    }
+
+    /**
+     * Setter pour le nombre de commentaires.
+     * @param int $commentCount Nombre de commentaires de l'article.
+     */
+    public function setCommentCount(int $commentCount = 0) : void 
+    {
+        $this->commentCount = $commentCount;
+    }
+
+    /**
+     * Getter pour le nombre de commentaires.
+     * @return int Nombre de commentaires de l'article.
+     */
+    public function getCommentCount() : int
+    {
+        return $this->commentCount;
     }
  }

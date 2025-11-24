@@ -11,7 +11,8 @@ class ArticleManager extends AbstractEntityManager
      */
     public function getAllArticles() : array
     {
-        $sql = "SELECT * FROM article";
+        // $sql = "SELECT * FROM article";
+        $sql = "SELECT a.*, COUNT(c.id) AS comment_count FROM article a LEFT JOIN comment c ON c.id_article = a.id GROUP BY a.id";
         $result = $this->db->query($sql);
         $articles = [];
 
@@ -28,7 +29,8 @@ class ArticleManager extends AbstractEntityManager
      */
     public function getArticleById(int $id) : ?Article
     {
-        $sql = "SELECT * FROM article WHERE id = :id LIMIT 1";
+        // $sql = "SELECT * FROM article WHERE id = :id LIMIT 1";
+        $sql = "SELECT a.*, COUNT(c.id) AS comment_count FROM article a LEFT JOIN comment c ON c.id_article = a.id WHERE a.id = :id GROUP BY a.id";
         $result = $this->db->query($sql, ['id' => $id]);
         $article = $result->fetch();
         if ($article) {

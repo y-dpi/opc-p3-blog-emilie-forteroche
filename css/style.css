@@ -20,6 +20,7 @@
     --dateColor: #3f56a4;
     --quoteColor: #c5cbe4;
     --commentPaleColor: #99a140;
+    --commentPalerColor: #b5bd60;
     --commentColor: #255E33;
 }
 
@@ -307,16 +308,20 @@ a.info {
  * Partie admin
  */ 
 
-.adminArticle {
+.adminMain,
+.adminArticle,
+.adminArticleStats {
     margin-bottom: 20px;
     background-color: var(--commentPaleColor);
     color: white;
 }
 
+.adminAction,
 .articleLine {
     display: flex; 
 }
 
+.adminAction div,
 .articleLine div {
     display: flex;
     align-items: center;
@@ -328,13 +333,55 @@ a.info {
     width: 200px;
 }
 
+.adminAction .title {
+    font-weight: bold;
+    min-width: 200px;
+    width: 100%;
+}
+
 .articleLine .content {
     flex-grow: 1;
 }
 
-.articleLine > div {
+.articleLine > div,
+.adminAction > div {
     padding: 20px;
     border: 1px solid var(--backgroundColor);
+}
+
+/**
+ * Page de statistiques des articles.
+ */
+
+.statsTable {
+    background-color: var(--backgroundColor);
+}
+
+.statsHead {
+    background-color: var(--commentColor);
+}
+
+.statsRow:nth-child(odd) {
+    background-color: var(--commentPaleColor);
+}
+
+.statsRow:nth-child(even) {
+    background-color: var(--commentPalerColor);
+}
+
+.statsTitle {
+    font-weight: bold;
+}
+
+.statsValue {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.statsTitle,
+.statsValue {
+  padding: 8pt 16pt;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /** 

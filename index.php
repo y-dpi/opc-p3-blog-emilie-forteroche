@@ -38,10 +38,20 @@ try {
             break;
 
 
-        // Section admin & connexion. 
+        // Section admin & connexion.
         case 'admin': 
             $adminController = new AdminController();
             $adminController->showAdmin();
+            break;
+
+        case 'manageArticles': 
+            $adminController = new AdminController();
+            $adminController->showArticleManager();
+            break;
+
+        case 'articleStats': 
+            $adminController = new AdminController();
+            $adminController->showArticleStats();
             break;
 
         case 'connectionForm':

@@ -14,14 +14,56 @@ class AdminController {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
 
-        // On récupère les articles.
-        $articleManager = new ArticleManager();
-        $articles = $articleManager->getAllArticles();
+        // On définit les actions possibles de l'admin.
+        $adminActions = [
+            "manageArticles" => "Gestion des articles",
+            "articleStats" => "Statistiques des articles"
+        ];
 
         // On affiche la page d'administration.
         $view = new View("Administration");
         $view->render("admin", [
+            'adminActions' => $adminActions
+        ]);
+    }
+
+    /**
+     * Affiche la page de gestion des articles.
+     * @return void
+     */
+    public function showArticleManager() : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
+        // On récupère les articles.
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->getAllArticles();
+
+        // On affiche la page de gestion des articles.
+        $view = new View("Gestion des articles");
+        $view->render("manageArticles", [
             'articles' => $articles
+        ]);
+    }
+
+    /**
+     * Affiche la page de statistiques des articles.
+     * @return void
+     */
+    public function showArticleStats() : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
+        // On récupère les articles.
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->getAllArticles();
+
+        // On affiche la page de statistiques des articles.
+        $view = new View("Statistiques des articles");
+        $view->render("articleStats", [
+            'articles' => $articles,
         ]);
     }
 
@@ -154,8 +196,8 @@ class AdminController {
         $articleManager = new ArticleManager();
         $articleManager->addOrUpdateArticle($article);
 
-        // On redirige vers la page d'administration.
-        Utils::redirect("admin");
+        // On redirige vers la page de gestion des articles.
+        Utils::redirect("manageArticles");
     }
 
 
@@ -173,7 +215,7 @@ class AdminController {
         $articleManager = new ArticleManager();
         $articleManager->deleteArticle($id);
        
-        // On redirige vers la page d'administration.
-        Utils::redirect("admin");
+        // On redirige vers la page de gestion des articles.
+        Utils::redirect("manageArticles");
     }
 }
