@@ -28,7 +28,7 @@ class ArticleManager extends AbstractEntityManager
      */
     public function getArticleById(int $id) : ?Article
     {
-        $sql = "SELECT * FROM article WHERE id = :id";
+        $sql = "SELECT * FROM article WHERE id = :id LIMIT 1";
         $result = $this->db->query($sql, ['id' => $id]);
         $article = $result->fetch();
         if ($article) {
@@ -59,7 +59,7 @@ class ArticleManager extends AbstractEntityManager
      */
     public function addArticle(Article $article) : void
     {
-        $sql = "INSERT INTO article (id_user, title, content, date_creation) VALUES (:id_user, :title, :content, NOW())";
+        $sql = "INSERT INTO article (id_user, title, content, date_creation, date_update) VALUES (:id_user, :title, :content, NOW(), NOW())";
         $this->db->query($sql, [
             'id_user' => $article->getIdUser(),
             'title' => $article->getTitle(),
@@ -91,5 +91,18 @@ class ArticleManager extends AbstractEntityManager
     {
         $sql = "DELETE FROM article WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
+    }
+
+    /**
+     * Ajoute une vue à un article.
+     * @param int $id : l'id de l'article.
+     * @return void
+     */
+    public function addViewToArticle(int $id) : void
+    {
+        $sql = "UPDATE article SET views = views + 1 WHERE id = :id";
+        $this->db->query($sql, [
+            'id' => $id
+        ]);
     }
 }

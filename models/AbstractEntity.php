@@ -28,7 +28,7 @@ abstract class AbstractEntity
     protected function hydrate(array $data) : void 
     {
         foreach ($data as $key => $value) {
-            $method = 'set' . str_replace('_', '', ucwords($key, '_'));
+            $method = 'set' . str_replace('_', '', ucwords($key, '_')); // 'my_var_name' in assoc array becomes 'myVarName' in entity (if exists).
             if (method_exists($this, $method)) {
                 $this->$method($value);
             }

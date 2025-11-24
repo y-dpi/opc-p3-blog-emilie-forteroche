@@ -34,6 +34,8 @@ class ArticleController
         $commentManager = new CommentManager();
         $comments = $commentManager->getAllCommentsByArticleId($id);
 
+        $articleManager->addViewToArticle($id);
+
         $view = new View($article->getTitle());
         $view->render("detailArticle", ['article' => $article, 'comments' => $comments]);
     }
@@ -53,7 +55,7 @@ class ArticleController
      * @return void
      */
     public function showApropos() {
-        $view = new View("A propos");
+        $view = new View("À propos");
         $view->render("apropos");
     }
 }

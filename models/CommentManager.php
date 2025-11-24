@@ -29,7 +29,7 @@ class CommentManager extends AbstractEntityManager
      */
     public function getCommentById(int $id) : ?Comment
     {
-        $sql = "SELECT * FROM comment WHERE id = :id";
+        $sql = "SELECT * FROM comment WHERE id = :id LIMIT 1";
         $result = $this->db->query($sql, ['id' => $id]);
         $comment = $result->fetch();
         if ($comment) {

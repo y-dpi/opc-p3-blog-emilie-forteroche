@@ -5,7 +5,7 @@
 ?>
 
 <div class="articleList">
-    <?php foreach($articles as $article) { ?>
+    <?php foreach ($articles as $article) : ?>
         <article class="article">
             <h2><?= $article->getTitle() ?></h2>
             <span class="quotation">«</span>
@@ -16,5 +16,5 @@
                 <a class="info" href="index.php?action=showArticle&id=<?= $article->getId() ?>">Lire +</a>
             </div>
         </article>
-    <?php } ?>
+    <?php endforeach ?>
 </div>

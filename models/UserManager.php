@@ -13,7 +13,7 @@ class UserManager extends AbstractEntityManager
      */
     public function getUserByLogin(string $login) : ?User 
     {
-        $sql = "SELECT * FROM user WHERE login = :login";
+        $sql = "SELECT * FROM user WHERE login = :login LIMIT 1";
         $result = $this->db->query($sql, ['login' => $login]);
         $user = $result->fetch();
         if ($user) {
