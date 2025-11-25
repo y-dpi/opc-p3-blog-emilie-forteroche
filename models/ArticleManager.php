@@ -6,13 +6,25 @@
 class ArticleManager extends AbstractEntityManager 
 {
     /**
+     * Valide et formatte le filtre de tri pour une query SQL.
+     * @param string $sortFilterName : champ selon lequel trier la liste des articles.
+     * @return string : le filtre de tri final à ajouter à la query SQL.
+     */
+    private function sanitizeSortFilter(string $sortFilterName) : string
+    {
+        $sortWhitelist = ["title", "views", "comment_count", "date_creation"]; // Filtres de tri authorisés.
+        return (in_array($sortFilterName, $sortWhitelist)) ? " ORDER BY {$sortFilterName}" : "";
+    }
+
+    /**
      * Récupère tous les articles.
+     * @param int $id : champ selon lequel trier la liste des articles.
+     * @param int bool $sortOrderAsc : trier du plus petit au plus grand.
      * @return array : un tableau d'objets Article.
      */
-    public function getAllArticles() : array
+    public function getAllArticles(string $sortBy = "", bool $sortOrderAsc = true ) : array
     {
-        // $sql = "SELECT * FROM article";
-        $sql = "SELECT a.*, COUNT(c.id) AS comment_count FROM article a LEFT JOIN comment c ON c.id_article = a.id GROUP BY a.id";
+        $sql = "SELECT a.*, COUNT(c.id) AS comment_count FROM article a LEFT JOIN comment c ON c.id_article = a.id GROUP BY a.id{$this->sanitizeSortFilter($sortBy)}" . (($sortOrderAsc) ? " ASC" : " DESC");
         $result = $this->db->query($sql);
         $articles = [];
 
@@ -29,7 +41,6 @@ class ArticleManager extends AbstractEntityManager
      */
     public function getArticleById(int $id) : ?Article
     {
-        // $sql = "SELECT * FROM article WHERE id = :id LIMIT 1";
         $sql = "SELECT a.*, COUNT(c.id) AS comment_count FROM article a LEFT JOIN comment c ON c.id_article = a.id WHERE a.id = :id GROUP BY a.id";
         $result = $this->db->query($sql, ['id' => $id]);
         $article = $result->fetch();

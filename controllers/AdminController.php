@@ -56,14 +56,20 @@ class AdminController {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
 
+        // Récupération du filtre et de l'ordre de tri demandé.
+        $sortBy = Utils::request("sortBy", "");
+        $sortOrder = Utils::request("sortOrder", "asc");
+
         // On récupère les articles.
         $articleManager = new ArticleManager();
-        $articles = $articleManager->getAllArticles();
+        $articles = $articleManager->getAllArticles($sortBy, ($sortOrder === "asc"));
 
         // On affiche la page de statistiques des articles.
         $view = new View("Statistiques des articles");
         $view->render("articleStats", [
             'articles' => $articles,
+            'sortBy' => $sortBy,
+            'sortOrder' => $sortOrder,
         ]);
     }
 

@@ -87,4 +87,22 @@ class Utils {
         return $_REQUEST[$variableName] ?? $defaultValue;
     }
 
+    /**
+     * Cette méthode permet de formatter les paramètres de l'URL pour le tri..
+     * @param string $current : l'élément actuel à comparer.
+     * @param string $sortBy : le filtre de tri actuel.
+     * @param string $sortOrder : l'ordre de tri actuel.
+     */
+    public static function formatSortParameters(string $current, string $sortBy, string $sortOrder) : string
+    {
+        if ($current === $sortBy) {
+            if ($sortOrder === "asc") {
+                echo "&sortBy=" . htmlspecialchars($current) . "&sortOrder=desc";
+            }
+        } else {
+            echo "&sortBy=" . htmlspecialchars($current) . "&sortOrder=asc";
+        }
+        return "";
+    }
+
 }
