@@ -100,7 +100,7 @@ class Utils {
                 echo "&sortBy=" . htmlspecialchars($current) . "&sortOrder=desc";
             }
         } else {
-            echo "&sortBy=" . htmlspecialchars($current) . "&sortOrder=asc";
+            echo "&sortBy=" . htmlspecialchars($current);
         }
         return "";
     }

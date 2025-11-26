@@ -36,8 +36,10 @@ class ArticleController
 
         $articleManager->addViewToArticle($id);
 
+        $isAdmin = isset($_SESSION['user']);
+
         $view = new View($article->getTitle());
-        $view->render("detailArticle", ['article' => $article, 'comments' => $comments]);
+        $view->render("detailArticle", ['article' => $article, 'comments' => $comments, 'isAdmin' => $isAdmin]);
     }
 
     /**

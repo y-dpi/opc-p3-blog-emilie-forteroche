@@ -22,6 +22,7 @@
     --commentPaleColor: #99a140;
     --commentPalerColor: #b5bd60;
     --commentColor: #255E33;
+    --commentDeleteColor: #ec3c20;
 }
 
 /**
@@ -282,6 +283,13 @@ a.info {
 
 .detailComment .content {
     margin: 5px 0 5px 0;
+}
+
+.detailComment .delete {
+    margin: 5px 0 5px 0;
+    font-weight: bold;
+    font-size: 8pt;
+    color: var(--commentDeleteColor);
 }
 
 /* Page d'erreur */

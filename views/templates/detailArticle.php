@@ -31,11 +31,13 @@
                 echo '  <div class="detailComment">';
                 echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
                 echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
+                if ($isAdmin) // Si on est connecté, on affiche le bouton de suppression, sinon, on affiche rien
+                    echo '  <p class="delete"><a href="index.php?action=deleteComment&id=' . htmlspecialchars($comment->getId()) . '&redirect=' . htmlspecialchars($article->getId()) . '" ' . Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer ce commentaire ?") .'>Supprimer le commentaire<a></p>';
                 echo '  </div>';
                 echo '</li>';
-            }               
+            }
             echo '</ul>';
-        } 
+        }
     ?>
 
     <form action="index.php" method="post" class="foldedCorner">
